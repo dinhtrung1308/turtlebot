@@ -102,13 +102,10 @@ class RedBallFollower:
         """
         hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
 
-        # Red range 1: 0–10 °
-        lower1, upper1 = np.array([0,   120,  70]), np.array([10,  255, 255])
-        # Red range 2: 170–180 °
-        lower2, upper2 = np.array([170, 120,  70]), np.array([180, 255, 255])
-
-        mask = cv2.bitwise_or(cv2.inRange(hsv, lower1, upper1),
-                              cv2.inRange(hsv, lower2, upper2))
+        lower_green = np.array([35, 50, 50])
+        upper_green = np.array([85, 255, 255])
+        
+        mask = cv2.inRange(hsv, lower_green, upper_green)
 
         # Clean up noise
         kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (7, 7))
